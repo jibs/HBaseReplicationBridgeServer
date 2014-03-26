@@ -25,8 +25,6 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.client.HTable;
-import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase94.HBaseConfiguration;
 import org.apache.hadoop.hbase94.HConstants;
 import org.apache.hadoop.hbase94.client.HConnectionManager;
@@ -153,7 +151,7 @@ public class ReplicationBridgeServer extends BaseHRegionServer implements HBaseR
   public void run() {
     try {
       // create replication handler
-      replicationHandler = new ReplicationSink(this.conf);
+      replicationHandler = new HB96ReplicationSinkImpl(this.conf);
       this.conf.set("hbase.zookeeper.quorum", this.conf.get("hbase.bridge.source.zookeeper.quorum"));
       
       // starts RPC server
